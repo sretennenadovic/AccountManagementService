@@ -8,6 +8,7 @@ namespace AccountManagement
 {
     public interface iPayment
     {
+        //methods for clients
         void Pay(double accountNumber,double sum);
         void PayOff(double accountNumber, double sum);
     }
