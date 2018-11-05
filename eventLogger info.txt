@@ -1,0 +1,15 @@
+using (EventLog eventLog = new EventLog("Test1"))
+            {
+
+                // upisi vreme transakcije od AMS-a
+                string message = "Transaction time: {0}";
+                //eventLog.Source = "EventViewerTest";
+                eventLog.WriteEntry("Log message example", EventLogEntryType.Error, 101, 1);
+                eventLog.WriteEntry("Warning message", EventLogEntryType.Warning, 101, 1);
+                eventLog.WriteEntry("Info message", EventLogEntryType.Information, 101, 1);
+
+                //eventLog.
+
+
+                Console.ReadLine();
+            }
