@@ -11,5 +11,7 @@ namespace AccountManagement
         //this methods are used from clients to manipulate their accounts
         void Pay(double accountNumber,double sum);
         void PayOff(double accountNumber, double sum);
+        void AddAccount();
+        void Delete();
     }
 }
