@@ -39,7 +39,7 @@ namespace Client
 
             using (WCFClient proxy = new WCFClient(binding, address))
             {
-                proxy.AddAccount();
+                proxy.AddAccount("1");
             }
 
             Console.ReadKey();

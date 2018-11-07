@@ -30,52 +30,60 @@ namespace Client
 
             factory = this.CreateChannel();
         }
-        public void AddAccount()
+
+        public bool AddAccount(string s)
         {
-            Console.ReadKey();
+            bool retVal = false;
             try
             {
-                factory.AddAccount();
+                retVal = factory.AddAccount("1");
             }catch(Exception e)
             {
                 Console.WriteLine("[AddAccount] ERROR = {0}", e.Message);
             }
+            return retVal;
         }
 
-        public void Delete()
+        public bool Delete(string accountNumber)
         {
+            bool retVal = false;
             try
             {
-                factory.Delete();
+                retVal = factory.Delete("1");
             }
             catch (Exception e)
             {
                 Console.WriteLine("[Delete] ERROR = {0}", e.Message);
             }
+            return retVal;
         }
 
-        public void Pay(double accountNumber, double sum)
+        public bool Pay(string accountNumber, double sum)
         {
+            bool retVal = false;
             try
             {
-                factory.Pay(accountNumber,sum);
+                retVal = factory.Pay(accountNumber,sum);
             }
             catch (Exception e)
             {
                 Console.WriteLine("[Pay] ERROR = {0}", e.Message);
             }
+            return retVal;
         }
 
-        public void PayOff(double accountNumber, double sum)
+        public bool PayOff(string accountNumber, double sum)
         {
+            bool retVal = false;
             try
             {
-                factory.PayOff(accountNumber, sum);
+                retVal = factory.PayOff(accountNumber, sum);
             }
             catch (Exception e)
             {
                 Console.WriteLine("[PayOff] ERROR = {0}", e.Message);
             }
+            return retVal;
         }
 
         public void Dispose()

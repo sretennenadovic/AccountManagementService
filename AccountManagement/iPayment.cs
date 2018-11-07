@@ -12,12 +12,12 @@ namespace AccountManagement
     {
         //this methods are used from clients to manipulate their accounts
         [OperationContract]
-        void Pay(double accountNumber,double sum);
+        bool Pay(string accountNumber,double sum);
         [OperationContract]
-        void PayOff(double accountNumber, double sum);
+        bool PayOff(string accountNumber, double sum);
         [OperationContract]
-        void AddAccount();
+        bool AddAccount(string accountNuber);
         [OperationContract]
-        void Delete();
+        bool Delete(string accountNuber);
     }
 }
