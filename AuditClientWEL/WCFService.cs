@@ -23,7 +23,7 @@ namespace AuditClientWEL
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-            string address = "net.tcp://localhost:9999/AuditWELService";
+            string address = "net.tcp://localhost:9999/AMSWEL";
             ServiceHost host = new ServiceHost(typeof(AuditWELService));
             host.AddServiceEndpoint(typeof(iPayment), binding, address);
 
@@ -34,7 +34,7 @@ namespace AuditClientWEL
 
             ///Custom validation mode enables creation of a custom validator - CustomCertificateValidator
             host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
-            host.Credentials.ClientCertificate.Authentication.CustomCertificateValidator = new ServiceCertValidator();
+            //host.Credentials.ClientCertificate.Authentication.CustomCertificateValidator = new ServiceCertValidator();
 
             ///If CA doesn't have a CRL associated, WCF blocks every client because it cannot be validated
             host.Credentials.ClientCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;

@@ -14,7 +14,7 @@ namespace AuditClientWEL
 
         public void AddAccount()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Primiri der strasti...");
         }
 
         public void Delete()
