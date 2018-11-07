@@ -80,6 +80,7 @@ namespace AuditClientWEL
                     }  
                     else
                     {
+                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber+","+sum.ToString()+",e");
                         return false;
                     }
                 }

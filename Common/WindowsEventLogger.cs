@@ -16,10 +16,10 @@ namespace Common
             using (EventLog eventLog = new EventLog("AuditClientWELLogger"))
             {
                 eventLog.Source = "AuditClientWELL";
-                if (parts[5].Equals('i'))
+                if (parts[6].Equals("i"))
                 {
                     eventLog.WriteEntry(message.Substring(0, message.Length - 2), EventLogEntryType.Information, 101, 1);
-                }else if (parts[5].Equals('e'))
+                }else if (parts[6].Equals("e"))
                 {
                     eventLog.WriteEntry(message.Substring(0, message.Length - 2), EventLogEntryType.Error, 101, 1);
                 }
