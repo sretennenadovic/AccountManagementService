@@ -37,6 +37,10 @@ namespace Client
             try
             {
                 retVal = factory.AddAccount("1");
+                if (retVal)
+                {
+                    Console.WriteLine("You have added account successfuly");
+                }
             }catch(Exception e)
             {
                 Console.WriteLine("[AddAccount] ERROR = {0}", e.Message);
@@ -50,6 +54,10 @@ namespace Client
             try
             {
                 retVal = factory.Delete("1");
+                if (retVal)
+                {
+                    Console.WriteLine("You have deleted account successfuly");
+                }
             }
             catch (Exception e)
             {
@@ -64,6 +72,10 @@ namespace Client
             try
             {
                 retVal = factory.Pay(accountNumber,sum);
+                if (retVal)
+                {
+                    Console.WriteLine("You have payed successfuly");
+                }
             }
             catch (Exception e)
             {
@@ -78,6 +90,10 @@ namespace Client
             try
             {
                 retVal = factory.PayOff(accountNumber, sum);
+                if (retVal)
+                {
+                    Console.WriteLine("You have payed off successfuly");
+                }
             }
             catch (Exception e)
             {

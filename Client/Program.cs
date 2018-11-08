@@ -16,6 +16,9 @@ namespace Client
             string option;
             string srvCertCN = String.Empty;
             Console.WriteLine("Choose one option:");
+            Console.WriteLine("1. Windows Event Logger");
+            Console.WriteLine("2. XML Logger");
+            Console.WriteLine("3. TXT Logger");
             option = Console.ReadLine();
             switch (option)
             {
@@ -35,11 +38,46 @@ namespace Client
             
             /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://10.1.212.152:9999/AuditWELService"), new X509CertificateEndpointIdentity(srvCert));
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://10.1.212.152:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
 
             using (WCFClient proxy = new WCFClient(binding, address))
             {
-                proxy.AddAccount("1");
+                do
+                {
+                    Console.WriteLine("Choose one of the options: ");
+                    Console.WriteLine("1. Pay");
+                    Console.WriteLine("2. Pay off");
+                    Console.WriteLine("3. Add account");
+                    Console.WriteLine("4. Delete account");
+                    string opt = Console.ReadLine();
+
+                    switch (opt)
+                    {
+                        case "1":
+                            Console.WriteLine("Enter account number: ");
+                            string accNum = Console.ReadLine();
+                            Console.WriteLine("Enter amout: ");
+                            int ammount = 0;
+                            try
+                            {
+                                ammount = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("You must enter number value");
+                            }
+                            break;
+                        case "2":
+
+                        default:
+                            break;
+                    }
+
+
+                    proxy.Pay("123456", 50);
+                    proxy.Pay("111111", 100);
+
+                } while (true);
             }
 
             Console.ReadKey();
