@@ -43,8 +43,8 @@ namespace Common
                 XDocument xDocument = XDocument.Load("AuditClientXMLLog");
                 XElement root = xDocument.Element("Logs");
                 IEnumerable<XElement> rows = root.Descendants("Log");
-                XElement firstRow = rows.First();
-                firstRow.AddAfterSelf(
+                XElement lastRow = rows.Last();
+                lastRow.AddAfterSelf(
                    new XElement("Log",
                    new XElement("Name", parts[0]),
                    new XElement("Time", parts[1]),

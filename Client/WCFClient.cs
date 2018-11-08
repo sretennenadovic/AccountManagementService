@@ -31,12 +31,12 @@ namespace Client
             factory = this.CreateChannel();
         }
 
-        public bool AddAccount(string s)
+        public bool AddAccount(string accountNumber)
         {
             bool retVal = false;
             try
             {
-                retVal = factory.AddAccount("1");
+                retVal = factory.AddAccount(accountNumber);
                 if (retVal)
                 {
                     Console.WriteLine("You have added account successfuly");
@@ -53,7 +53,7 @@ namespace Client
             bool retVal = false;
             try
             {
-                retVal = factory.Delete("1");
+                retVal = factory.Delete(accountNumber);
                 if (retVal)
                 {
                     Console.WriteLine("You have deleted account successfuly");

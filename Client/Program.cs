@@ -61,22 +61,39 @@ namespace Client
                             try
                             {
                                 ammount = Convert.ToInt32(Console.ReadLine());
+                                
                             }
                             catch (Exception)
                             {
                                 Console.WriteLine("You must enter number value");
                             }
+                            proxy.Pay(accNum, ammount);
                             break;
                         case "2":
+                            Console.WriteLine("Enter account number: ");
+                            accNum = Console.ReadLine();
+                            Console.WriteLine("Enter amout: ");
+                            try
+                            {
+                                ammount = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("You must enter number value");
+                            }
+                            /// PROXY
+                            break;
+                        case "3":
 
+                            break;
                         default:
                             break;
                     }
 
 
-                    proxy.Pay("123456", 50);
-                    proxy.Pay("111111", 100);
-
+                    //proxy.Pay("123456", 50);
+                    //proxy.Pay("111111", 100);
+                    
                 } while (true);
             }
 
