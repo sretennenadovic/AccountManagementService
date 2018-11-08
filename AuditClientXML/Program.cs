@@ -10,6 +10,9 @@ namespace AuditClientXML
     {
         static void Main(string[] args)
         {
+            WCFService service = new WCFService();
+            Console.WriteLine("Server is started..");
+            Console.ReadKey();
         }
     }
 }

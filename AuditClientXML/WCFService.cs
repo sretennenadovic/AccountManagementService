@@ -10,7 +10,7 @@ using System.ServiceModel.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuditClientWEL
+namespace AuditClientXML
 {
     public class WCFService
     {
@@ -24,7 +24,7 @@ namespace AuditClientWEL
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
             string address = "net.tcp://localhost:9999/Service";
-            ServiceHost host = new ServiceHost(typeof(AuditWELService));
+            ServiceHost host = new ServiceHost(typeof(AuditXMLService));
             host.AddServiceEndpoint(typeof(iPayment), binding, address);
 
             ///PeerTrust - for development purposes only to temporarily disable the mechanism that checks the chain of trust for a certificate. 

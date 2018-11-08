@@ -54,6 +54,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,11 +64,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts.cs" />
+    <Compile Include="AuditXMLService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WCFService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccountManagement\AccountManagement.csproj">
+      <Project>{551AF4DF-589B-43D0-920B-641B42E44412}</Project>
+      <Name>AccountManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuditClientWEL\AuditClientWEL.csproj">
+      <Project>{839A81F5-29BE-428F-891E-FAF9BCC1B11C}</Project>
+      <Name>AuditClientWEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{1C2848A4-8C8B-438F-95CB-FD6200A46296}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
