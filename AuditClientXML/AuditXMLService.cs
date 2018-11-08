@@ -4,16 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
-using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace AuditClientWEL
+namespace AuditClientXML
 {
-
-    public class AuditWELService : iPayment
+    public class AuditXMLService : iPayment
     {
         Object obj = new Object();
 
@@ -21,7 +18,7 @@ namespace AuditClientWEL
         public bool AddAccount(string accountNumber)
         {
             //IIdentity i =  ServiceSecurityContext.Current.PrimaryIdentity;
-            
+
             //var genericPrincipal = new GenericPrincipal(Thread.CurrentPrincipal.Identity, null);
             if (ServiceSecurityContext.Current.PrimaryIdentity.Name.Split('=')[2].Contains("AccountManagers"))
             {
@@ -30,19 +27,19 @@ namespace AuditClientWEL
                     if (!Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts.Add(accountNumber, 0);
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + ","+DateTime.Now+",AddAccount,"+accountNumber+"-1,i");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,i");
                         return true;
                     }
                     else
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
                         return false;
                     }
                 }
             }
             else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
+                XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
                 throw new SecurityException("You don't have permission to add account.");
             }
         }
@@ -56,18 +53,19 @@ namespace AuditClientWEL
                     if (!Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts.Remove(accountNumber);
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,i");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,i");
                         return true;
                     }
                     else
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
                         return false;
                     }
                 }
-            } else
+            }
+            else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
+                XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
                 throw new SecurityException("You don't have permission to delete account.");
             }
         }
@@ -78,22 +76,22 @@ namespace AuditClientWEL
             {
                 lock (obj)
                 {
-                    if(Accounts.accounts.ContainsKey(accountNumber))
+                    if (Accounts.accounts.ContainsKey(accountNumber))
                     {
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",i");
                         Accounts.accounts[accountNumber] += sum;
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",i");
                         return true;
-                    }  
+                    }
                     else
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber+","+sum.ToString()+",e");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",e");
                         return false;
                     }
                 }
             }
             else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",e");
+                XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",e");
                 throw new SecurityException("You don't have permission to pay.");
             }
         }
@@ -107,21 +105,22 @@ namespace AuditClientWEL
                     if (Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts[accountNumber] -= sum;
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",i");
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",i");
                         return true;
                     }
                     else
+                        XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",e");
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",e");
                         return false;
                     }
                 }
             }
             else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",e");
+                XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",e");
                 throw new SecurityException("You don't have permission to pay off.");
             }
         }
     }
 }
+
