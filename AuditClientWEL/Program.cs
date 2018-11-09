@@ -76,6 +76,39 @@ namespace AuditClientWEL
                         lastIndexSent++;
                         proxy.SendLogs(logs);
                     }
+                    else if(eventLog.Entries.Count != 0 && eventLog.Entries.Count < lastIndexSent)
+                    {
+                        lastIndexSent = 0;
+
+                        if (eventLog.Entries[lastIndexSent].EntryType == EventLogEntryType.Information)
+                        {
+                            logs = eventLog.Entries[lastIndexSent].Message + ",i";
+                        }
+                        else
+                        {
+                            logs = eventLog.Entries[lastIndexSent].Message + ",e";
+                        }
+
+                        for (int i = lastIndexSent + 1; i < eventLog.Entries.Count; i++)
+                        {
+                            if (eventLog.Entries[i].EntryType == EventLogEntryType.Information)
+                            {
+                                logs += ("_" + eventLog.Entries[i].Message + ",i");
+                            }
+                            else
+                            {
+                                logs += ("_" + eventLog.Entries[i].Message + ",e");
+                            }
+
+                            lastIndexSent = i;              //next time this index will be different (we do not want to send every time same data)
+                        }
+                        lastIndexSent++;
+                        proxy.SendLogs(logs);
+                    }
+                    else if (eventLog.Entries.Count == 0)
+                    {
+                        lastIndexSent = 0;
+                    }
                 }
             }
         }
