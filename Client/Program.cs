@@ -38,7 +38,7 @@ namespace Client
             
             /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://10.1.212.152:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://10.1.212.105:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
 
             using (WCFClient proxy = new WCFClient(binding, address))
             {
@@ -50,6 +50,7 @@ namespace Client
                     Console.WriteLine("3. Add account");
                     Console.WriteLine("4. Delete account");
                     string opt = Console.ReadLine();
+                    int ammount = 0;
 
                     switch (opt)
                     {
@@ -57,7 +58,6 @@ namespace Client
                             Console.WriteLine("Enter account number: ");
                             string accNum = Console.ReadLine();
                             Console.WriteLine("Enter amout: ");
-                            int ammount = 0;
                             try
                             {
                                 ammount = Convert.ToInt32(Console.ReadLine());
@@ -73,6 +73,7 @@ namespace Client
                             Console.WriteLine("Enter account number: ");
                             accNum = Console.ReadLine();
                             Console.WriteLine("Enter amout: ");
+                            
                             try
                             {
                                 ammount = Convert.ToInt32(Console.ReadLine());
@@ -81,10 +82,19 @@ namespace Client
                             {
                                 Console.WriteLine("You must enter number value");
                             }
-                            /// PROXY
+                            proxy.PayOff(accNum, ammount);
                             break;
                         case "3":
+                            Console.WriteLine("Enter account number: ");
+                            accNum = Console.ReadLine();
 
+                            proxy.AddAccount(accNum);
+                            break;
+                        case "4":
+                            Console.WriteLine("Enter account number: ");
+                            accNum = Console.ReadLine();
+
+                            proxy.Delete(accNum);
                             break;
                         default:
                             break;

@@ -30,19 +30,19 @@ namespace AuditClientWEL
                     if (!Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts.Add(accountNumber, 0);
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + ","+DateTime.Now+",AddAccount,"+accountNumber+"-1,i");
+                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + ","+DateTime.Now+",AddAccount,"+accountNumber+",-1,i");
                         return true;
                     }
                     else
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
+                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + ",-1,e");
                         return false;
                     }
                 }
             }
             else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + "-1,e");
+                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",AddAccount," + accountNumber + "," + ",-1,e");
                 throw new SecurityException("You don't have permission to add account.");
             }
         }
@@ -53,21 +53,21 @@ namespace AuditClientWEL
             {
                 lock (obj)
                 {
-                    if (!Accounts.accounts.ContainsKey(accountNumber))
+                    if (Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts.Remove(accountNumber);
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,i");
+                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber+ ",-1,i");
                         return true;
                     }
                     else
                     {
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
+                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber  + ",-1,e");
                         return false;
                     }
                 }
             } else
             {
-                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,e");
+                WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber +",-1,e");
                 throw new SecurityException("You don't have permission to delete account.");
             }
         }

@@ -50,7 +50,7 @@ namespace AuditClientXML
             {
                 lock (obj)
                 {
-                    if (!Accounts.accounts.ContainsKey(accountNumber))
+                    if (Accounts.accounts.ContainsKey(accountNumber))
                     {
                         Accounts.accounts.Remove(accountNumber);
                         XMLLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Delete," + accountNumber + "," + "-1,i");
