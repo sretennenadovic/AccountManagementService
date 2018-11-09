@@ -41,6 +41,10 @@ namespace Client
                 {
                     Console.WriteLine("You have added account successfuly");
                 }
+                else
+                {
+                    Console.WriteLine("An error occured while trying to add account!");
+                }
             }catch(Exception e)
             {
                 Console.WriteLine("[AddAccount] ERROR = {0}", e.Message);
@@ -57,6 +61,10 @@ namespace Client
                 if (retVal)
                 {
                     Console.WriteLine("You have deleted account successfuly");
+                }
+                else
+                {
+                    Console.WriteLine("An error occured while trying to delete account!");
                 }
             }
             catch (Exception e)
@@ -76,6 +84,10 @@ namespace Client
                 {
                     Console.WriteLine("You have payed successfuly");
                 }
+                else
+                {
+                    Console.WriteLine("An error occured while trying to pay!");
+                }
             }
             catch (Exception e)
             {
@@ -93,6 +105,10 @@ namespace Client
                 if (retVal)
                 {
                     Console.WriteLine("You have payed off successfuly");
+                }
+                else
+                {
+                    Console.WriteLine("An error occured while trying to pay off!");
                 }
             }
             catch (Exception e)
