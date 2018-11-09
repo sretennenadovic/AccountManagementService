@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,13 @@ namespace AuditClientTXT
     {
         static void Main(string[] args)
         {
+            int sleepTime = 0;
+
             WCFService service = new WCFService();
             Console.WriteLine("Server is started..");
+
+            sleepTime = ConfigLoader.Config("../../../../Common/AuditClientConfig.xml");
+
             Console.ReadKey();
         }
     }

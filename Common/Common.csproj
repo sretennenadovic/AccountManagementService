@@ -70,6 +70,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,12 +81,19 @@
   <ItemGroup>
     <Compile Include="CertManager.cs" />
     <Compile Include="ClientCertValidator.cs" />
+    <Compile Include="ConfigLoader.cs" />
     <Compile Include="Formatter.cs" />
+    <Compile Include="IAuditService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCertValidator.cs" />
     <Compile Include="TXTLogger.cs" />
     <Compile Include="WindowsEventLogger.cs" />
     <Compile Include="XMLLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuditClientConfig.xml" />
+    <Content Include="AuditServerConfig.xml" />
+    <Content Include="ServerParams.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

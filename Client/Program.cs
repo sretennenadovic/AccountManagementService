@@ -98,12 +98,7 @@ namespace Client
                             break;
                         default:
                             break;
-                    }
-
-
-                    //proxy.Pay("123456", 50);
-                    //proxy.Pay("111111", 100);
-                    
+                    }              
                 } while (true);
             }
 

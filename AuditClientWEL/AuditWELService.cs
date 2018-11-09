@@ -17,7 +17,6 @@ namespace AuditClientWEL
     {
         Object obj = new Object();
 
-
         public bool AddAccount(string accountNumber)
         {
             //IIdentity i =  ServiceSecurityContext.Current.PrimaryIdentity;
