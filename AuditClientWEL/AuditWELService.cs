@@ -12,17 +12,14 @@ using System.Threading.Tasks;
 
 namespace AuditClientWEL
 {
-
+    
     public class AuditWELService : iPayment
     {
         Object obj = new Object();
 
         public bool AddAccount(string accountNumber)
         {
-            //IIdentity i =  ServiceSecurityContext.Current.PrimaryIdentity;
-            
-            //var genericPrincipal = new GenericPrincipal(Thread.CurrentPrincipal.Identity, null);
-            if (ServiceSecurityContext.Current.PrimaryIdentity.Name.Split('=')[2].Contains("AccountManagers"))
+            if (ServiceSecurityContext.Current.PrimaryIdentity.Name.Split('=')[2].Contains("AccountManagers"))      //here we check if user is in group
             {
                 lock (obj)
                 {
@@ -79,9 +76,9 @@ namespace AuditClientWEL
                 {
                     if(Accounts.accounts.ContainsKey(accountNumber))
                     {
-                        Accounts.accounts[accountNumber] += sum;
-                        WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",i");
-                        return true;
+                            Accounts.accounts[accountNumber] += sum;
+                            WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",Pay," + accountNumber + "," + sum.ToString() + ",i");
+                            return true;
                     }  
                     else
                     {
@@ -103,7 +100,7 @@ namespace AuditClientWEL
             {
                 lock (obj)
                 {
-                    if (Accounts.accounts.ContainsKey(accountNumber))
+                    if (Accounts.accounts.ContainsKey(accountNumber) && Accounts.accounts[accountNumber] >= sum)
                     {
                         Accounts.accounts[accountNumber] -= sum;
                         WindowsEventLogger.LogData(ServiceSecurityContext.Current.PrimaryIdentity.Name.Split(',')[0].Split('=')[1] + "," + System.DateTime.UtcNow.ToString() + ",PayOff," + accountNumber + "," + sum.ToString() + ",i");

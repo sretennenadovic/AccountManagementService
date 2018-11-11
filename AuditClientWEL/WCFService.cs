@@ -14,6 +14,7 @@ namespace AuditClientWEL
 {
     public class WCFService
     {
+        ServiceHost host;
         public WCFService()
         {
             Console.ReadKey();
@@ -24,7 +25,7 @@ namespace AuditClientWEL
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
             string address = "net.tcp://localhost:9999/Service";
-            ServiceHost host = new ServiceHost(typeof(AuditWELService));
+            host = new ServiceHost(typeof(AuditWELService));
             host.AddServiceEndpoint(typeof(iPayment), binding, address);
 
             ///PeerTrust - for development purposes only to temporarily disable the mechanism that checks the chain of trust for a certificate. 
@@ -43,6 +44,11 @@ namespace AuditClientWEL
             host.Credentials.ServiceCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, srvCertCN);
             host.Open();
             /// host.Credentials.ServiceCertificate.Certificate = CertManager.GetCertificateFromFile("WCFService.pfx");
+        }
+
+        public void CloseHost()
+        {
+            host.Close();
         }
     }
 }

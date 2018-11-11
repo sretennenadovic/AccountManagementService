@@ -32,6 +32,7 @@ namespace AuditClientWEL
             
             Console.ReadKey();
 
+            service.CloseHost();
             t.Dispose();
         }
 
@@ -46,7 +47,6 @@ namespace AuditClientWEL
 
                 if (EventLog.SourceExists("AuditClientWEL"))   //this log file must exists
                 {
-                    
                     EventLog eventLog = new EventLog();
                     eventLog.Log = "AuditClientWELLog";
                     if (lastIndexSent < eventLog.Entries.Count)
