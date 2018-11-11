@@ -38,7 +38,7 @@ namespace Client
             
             /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://10.1.212.105:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://192.168.40.143:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
 
             using (WCFClient proxy = new WCFClient(binding, address))
             {

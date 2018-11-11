@@ -52,6 +52,11 @@ namespace AuditServer
                 logsForAnalizing.Clear();
                 Thread.Sleep(sleepTime * 1000);
 
+                if (!EventLog.SourceExists("AuditServer"))
+                {
+                    continue;
+                }
+
                 EventLog eventLog = new EventLog();
                 eventLog.Log = "AuditServerLog";
                 if (lastIndexAnalized < eventLog.Entries.Count)
