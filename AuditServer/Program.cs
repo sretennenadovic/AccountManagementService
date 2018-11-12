@@ -163,7 +163,7 @@ namespace AuditServer
                         EventLog Log = new EventLog();
                         Log.Source = "AuditServerAnalyze";
 
-                        Log.WriteEntry("From account Number: " + item.Key + ", is paid off " + item.Value[1].ToString() + "unsuccessfully and that is more than " + param[1].ToString() + ",for the last " + sleepTime.ToString() + " sec/min.", EventLogEntryType.Information, 101, 1);
+                        Log.WriteEntry("From account Number: " + item.Key + ", is paid off " + item.Value[1].ToString() + "unsuccessfully and that is more than " + param[1].ToString() + ",for the last " + sleepTime.ToString() + " sec/min.", EventLogEntryType.Error, 101, 1);
                     }
                 }
             }
