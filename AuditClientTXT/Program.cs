@@ -61,31 +61,34 @@ namespace AuditClientTXT
                     }
                 }
 
-                for (int i = lastIndexSent; i < Logs.Count; i++)
+                if (lastIndexSent < Logs.Count)
                 {
-                    var parts = Logs[i].Split(',', '=');
-                    for (int j = 1; j < parts.Length; j += 2)
+                    for (int i = lastIndexSent; i < Logs.Count; i++)
                     {
-                        if (j == parts.Length)
+                        var parts = Logs[i].Split(',', '=');
+                        for (int j = 1; j < parts.Length; j += 2)
                         {
-                            if (Logs[i] != Logs.Last())
+                            if (j == parts.Length-1)
                             {
-                                logs += parts[j] + '_';
+                                if (Logs[i] != Logs.Last())
+                                {
+                                    logs += parts[j] + '_';
+                                }
+                                else
+                                {
+                                    logs += parts[j];
+                                }
                             }
                             else
                             {
-                                logs += parts[j];
+                                logs += parts[j] + ',';
                             }
                         }
-                        else
-                        {
-                            logs += parts[j] + ',';
-                        }
+                        lastIndexSent = i;
                     }
-                    lastIndexSent = i;
+                    lastIndexSent++;
+                    proxy.SendLogs(logs);
                 }
-                lastIndexSent++;
-                proxy.SendLogs(logs);
             }
         }
     }

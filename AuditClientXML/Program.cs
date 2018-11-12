@@ -55,23 +55,26 @@ namespace AuditClientXML
                 xDocument.Load("AuditClientXMLLog");
                 XmlNodeList nodes = xDocument.SelectNodes("Logs/Log");
 
-                for (int i = lastIndexSent; i < nodes.Count; i++)
+                if (lastIndexSent < nodes.Count)
                 {
-                    logs += nodes[i].ChildNodes[0].InnerText + "," +
-                            nodes[i].ChildNodes[1].InnerText + "," +
-                            nodes[i].ChildNodes[2].InnerText + "," +
-                            nodes[i].ChildNodes[3].InnerText + "," +
-                            nodes[i].ChildNodes[4].InnerText + "," +
-                            nodes[i].ChildNodes[5].InnerText;
-
-                    if(i != nodes.Count-1)
+                    for (int i = lastIndexSent; i < nodes.Count; i++)
                     {
-                        logs += "_";
+                        logs += nodes[i].ChildNodes[0].InnerText + "," +
+                                nodes[i].ChildNodes[1].InnerText + "," +
+                                nodes[i].ChildNodes[2].InnerText + "," +
+                                nodes[i].ChildNodes[3].InnerText + "," +
+                                nodes[i].ChildNodes[4].InnerText + "," +
+                                nodes[i].ChildNodes[5].InnerText;
+
+                        if (i != nodes.Count - 1)
+                        {
+                            logs += "_";
+                        }
+                        lastIndexSent = i;
                     }
-                    lastIndexSent = i;
+                    lastIndexSent++;
+                    proxy.SendLogs(logs);
                 }
-                lastIndexSent++;
-                proxy.SendLogs(logs);
             }
         }
     }

@@ -62,7 +62,7 @@ namespace AuditServer
                 eventLog.Log = "AuditServerLog";
                 if (lastIndexAnalized < eventLog.Entries.Count)
                 {
-                    for (int i = lastIndexAnalized + 1; i < eventLog.Entries.Count; i++)
+                    for (int i = lastIndexAnalized; i < eventLog.Entries.Count; i++)
                     {
                         if (eventLog.Entries[i].EntryType == EventLogEntryType.Information)
                         {
@@ -81,7 +81,7 @@ namespace AuditServer
                 {
                     lastIndexAnalized = 0;
 
-                    for (int i = lastIndexAnalized + 1; i < eventLog.Entries.Count; i++)
+                    for (int i = lastIndexAnalized; i < eventLog.Entries.Count; i++)
                     {
                         if (eventLog.Entries[i].EntryType == EventLogEntryType.Information)
                         {
