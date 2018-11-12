@@ -25,6 +25,7 @@ namespace AuditServer
             t.Start();
 
             NetTcpBinding binding = new NetTcpBinding();
+            binding.Security.Mode = SecurityMode.None;
             string address = "net.tcp://localhost:22222/AuditServer";
 
             ServiceHost host = new ServiceHost(typeof(AuditService));
@@ -119,7 +120,7 @@ namespace AuditServer
                         {
                             if (!EventLog.SourceExists("AuditServerAnalyze"))
                             {
-                                EventLog.CreateEventSource("AuditServerAnalyze", "AuditServerAnalyzeLog");
+                                EventLog.CreateEventSource("AuditServerAnalyze", "ASALog");
                             }
 
                             EventLog Log = new EventLog();
@@ -146,7 +147,7 @@ namespace AuditServer
                 {
                     if (!EventLog.SourceExists("AuditServerAnalyze"))
                     {
-                        EventLog.CreateEventSource("AuditServerAnalyze", "AuditServerAnalyzeLog");
+                        EventLog.CreateEventSource("AuditServerAnalyze", "ASALog");
                     }
 
                     if (item.Value[0] > param[0])

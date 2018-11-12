@@ -33,7 +33,7 @@ namespace Client
                     break;
                 case "3":
                     srvCertCN = "AMSTXT";
-                    ipAddress = "10.1.212.171";
+                    ipAddress = "10.1.212.170";
                     break;
             }
 

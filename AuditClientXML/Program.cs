@@ -23,6 +23,7 @@ namespace AuditClientXML
 
             sleepTime = ConfigLoader.Config("../../../../Common/AuditClientConfig.xml");
             NetTcpBinding binding = new NetTcpBinding();
+            binding.Security.Mode = SecurityMode.None;
             string address = "net.tcp://localhost:22222/AuditServer";
 
             ServerProxy proxy = new ServerProxy(binding, address);
