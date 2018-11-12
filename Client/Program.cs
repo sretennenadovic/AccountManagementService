@@ -15,6 +15,7 @@ namespace Client
         {
             string option;
             string srvCertCN = String.Empty;
+            string ipAddress = String.Empty;
             Console.WriteLine("Choose one option:");
             Console.WriteLine("1. Windows Event Logger");
             Console.WriteLine("2. XML Logger");
@@ -23,13 +24,16 @@ namespace Client
             switch (option)
             {
                 case "1":
+                    ipAddress = "10.1.212.148";
                     srvCertCN = "AMSWEL";
                     break;
                 case "2":
                     srvCertCN = "AMSXML";
+                    ipAddress = "10.1.212.172";
                     break;
                 case "3":
                     srvCertCN = "AMSTXT";
+                    ipAddress = "10.1.212.171";
                     break;
             }
 
@@ -38,7 +42,7 @@ namespace Client
             
             /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://192.168.40.143:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
+            EndpointAddress address = new EndpointAddress(new Uri($"net.tcp://{ipAddress}:9999/Service"), new X509CertificateEndpointIdentity(srvCert));
 
             using (WCFClient proxy = new WCFClient(binding, address))
             {
